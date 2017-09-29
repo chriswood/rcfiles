@@ -67,6 +67,37 @@ function md {
     cd "/c/Users/chris.wood/Desktop/code_new/$1"
 }
 
+function ss {
+    # todo put this in a file
+    declare -A servers
+    servers[cmrt_qa]=34.223.217.185
+    servers[cmm_qa]=52.42.41.226
+    servers[cmm_prod]=35.161.223.212
+    servers[profile_qa]=54.186.217.103
+    servers[profile_prod]=34.223.228.252
+
+    # if ip entry exists
+    if [ -z ${servers[$1]+x} ]
+    then 
+        echo "No ip address for $1"
+        echo "Available servers are..."
+        for key in "${!servers[@]}"
+        do
+            echo "$key"
+        done
+        return 0;
+    fi 
+    # test for pem file
+    if [ ! -f "tpp.pem" ]
+    then
+        echo "This scripts needs to be executed from the directory of your pem file"
+        return 0;
+    fi
+    echo "connecting to $1..."
+    ip=${servers[$1]}
+    ssh -i tpp.pem ec2-user@$ip
+}
+
 #SSH_ENV=$HOME/.ssh/environment
 #
 ## start the ssh-agent
