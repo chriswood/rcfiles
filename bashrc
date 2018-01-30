@@ -7,18 +7,14 @@ alias 'euler=cd /c/Users/chris.wood/Documents/useful_stuff/euler'
 alias grep='grep --color=auto'
 alias dfh='df -h'
 alias df='df -kTh'
-alias hom='cd /c/Users/chris.wood'
-alias cmm='cd /c/Users/chris.wood/Desktop/code_new'
-alias api='cd /c/Users/chris.wood/Desktop/code_new/cmm-api/'
+alias gs='git status'
+alias gd='git diff'
 
-export PATH="/c/Program Files (x86)/Python36-32":$PATH
 PS1="\[\033\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[m\]\$ "
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
-
-
 
 # Normal Colors
 Black='\e[0;30m'        # Black
@@ -44,27 +40,17 @@ BWhite='\e[1;37m'       # White
 On_Black='\e[40m'       # Black
 On_Red='\e[41m'         # Red
 
-function _exit() {
-    echo -e "${BRed}smell you later${NC}" 
-}
-
 
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
 
-alias killfirefox="for f in $(ps auxfwww | grep firefox | awk {'print$2'}); do kill -9 $f; done"
-
-function taillog {
-    cd /c/Users/chris.wood/projects/logs
-    tail -f transfer.log
-}
 
 get_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 function md {
-    cd "/c/Users/chris.wood/Desktop/code_new/$1"
+    cd "/mnt/d/code/$1"
 }
 
 function ss {
@@ -75,6 +61,10 @@ function ss {
     servers[cmm_prod]=35.161.223.212
     servers[profile_qa]=54.186.217.103
     servers[profile_prod]=34.223.228.252
+    servers[ipc_qa]=54.202.230.42
+    servers[cmm_qa_ui]=52.36.128.144
+    servers[ip_qa_api]=54.202.43.180
+    servers[haproxy]=35.161.17.204
 
     # if ip entry exists
     if [ -z ${servers[$1]+x} ]
@@ -98,27 +88,7 @@ function ss {
     ssh -i tpp.pem ec2-user@$ip
 }
 
-#SSH_ENV=$HOME/.ssh/environment
-#
-## start the ssh-agent
-#function start_agent {
-#    echo "Initializing new SSH agent..."
-#    # spawn ssh-agent
-#    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-#    echo "succeeded"
-#    chmod 600 "${SSH_ENV}"
-#    . "${SSH_ENV}" > /dev/null
-#    /usr/bin/ssh-add
-#}
-#
-#if [ -f "${SSH_ENV}" ]; then
-#    . "${SSH_ENV}" > /dev/null
-#    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-#        start_agent;
-#    }
-#else
-#    start_agent;
-#fi
+LS_COLORS="ow=01;36;40" && export LS_COLORS
 
-#PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(get_git_branch)\[\033[00m\] $(newline)"
+cd /mnt/d
 echo "--------rc read"
