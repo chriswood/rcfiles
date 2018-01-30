@@ -56,15 +56,15 @@ function md {
 function ss {
     # todo put this in a file
     declare -A servers
-    servers[cmrt_qa]=34.223.217.185
-    servers[cmm_qa]=52.42.41.226
-    servers[cmm_prod]=35.161.223.212
-    servers[profile_qa]=54.186.217.103
-    servers[profile_prod]=34.223.228.252
-    servers[ipc_qa]=54.202.230.42
-    servers[cmm_qa_ui]=52.36.128.144
-    servers[ip_qa_api]=54.202.43.180
-    servers[haproxy]=35.161.17.204
+    servers[cmrt_qa]=
+    servers[cmm_qa]=
+    servers[cmm_prod]=
+    servers[profile_qa]=
+    servers[profile_prod]=
+    servers[ipc_qa]=
+    servers[cmm_qa_ui]=
+    servers[ip_qa_api]=
+    servers[haproxy]=
 
     # if ip entry exists
     if [ -z ${servers[$1]+x} ]
